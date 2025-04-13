@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pomodoro | Focus</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      color: #ffffffcc;
+      font-weight: 500;
+    }
+
+    #box {
+      font-size: 72px;
+      font-weight: 600;
+      color: #ff6b6b;
+      background: #1e1e1e;
+      padding: 30px 60px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+    }
+
+    .btnz {
+      padding: 12px 28px;
+      font-size: 15px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      font-weight: 500;
+    }
+
+    .btnz:first-child {
+      background: #4caf50;
+      color: #fff;
+    }
+
+    .btnz:first-child:hover {
+      background: #43a047;
+    }
+
+    .btnz:last-child {
+      background: #e53935;
+      color: #fff;
+    }
+
+    .btnz:last-child:hover {
+      background: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <h2>Stay Focused</h2>
+  <div id="box">25:00</div>
+  <button class="btnz" onclick="go()">Start</button>
+  <button class="btnz" onclick="nah()">Reset</button>
+
+  <script>
+    let blob = 25 * 60;
+    let spin = null;
+    let tick = false;
+
+    function zing() {
+      let a = Math.floor(blob / 60);
+      let b = blob % 60;
+      document.getElementById("box").textContent = 
+        `${a < 10 ? '0'+a : a}:${b < 10 ? '0'+b : b}`;
+    }
+
+    function go() {
+      if (tick) return;
+      tick = true;
+      spin = setInterval(() => {
+        if (blob > 0) {
+          blob--;
+          zing();
+        } else {
+          clearInterval(spin);
+          alert("Time's up!");
+        }
+      }, 1000);
+    }
+
+    function nah() {
+      clearInterval(spin);
+      blob = 25 * 60;
+      tick = false;
+      zing();
+    }
+
+    zing();
+  </script>
+</body>
+</html>
